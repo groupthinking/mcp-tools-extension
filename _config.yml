@@ -1,0 +1,26 @@
+title: Open Protocol
+description: Enabling seamless integration between AI systems and data sources with MCP-first architecture
+url: https://openprotocol.ai
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# Theme customization
+show_downloads: false
+google_analytics:
+theme: jekyll-theme-cayman
+
+# Navigation Links (will appear in the header)
+navbar-links:
+  About: "about"
+  GitHub: "https://github.com/groupthinking/Open_Pro"
+  
+# Author information
+author:
+  name: groupthinking
+  github: groupthinking
+
+# Footer content
+footer-links:
+  github: groupthinking 

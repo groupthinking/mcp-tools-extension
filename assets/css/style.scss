@@ -1,0 +1,87 @@
+@import "{{ site.theme }}";
+
+// Custom color scheme
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$text-color: #1f2937;
+$link-color: #2563eb;
+$header-bg-color: #2563eb;
+$header-bg-color-secondary: #1e40af;
+$section-headings-color: #2563eb;
+
+// Override theme colors
+.page-header {
+  background-color: $header-bg-color;
+  background-image: linear-gradient(120deg, $header-bg-color, $header-bg-color-secondary);
+}
+
+.main-content {
+  h1, h2, h3, h4, h5, h6 {
+    color: $section-headings-color;
+  }
+}
+
+a {
+  color: $link-color;
+}
+
+// Table styling enhancements
+.main-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.main-content table th {
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+.main-content table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.main-content table tr:hover {
+  background-color: #eff6ff;
+}
+
+// Blockquote styling
+blockquote {
+  border-left: 4px solid $primary-color;
+  padding-left: 1em;
+  color: #4b5563;
+  font-style: italic;
+  margin-left: 0;
+  background-color: #f9fafb;
+  padding: 1em;
+}
+
+// Code block styling
+pre {
+  background-color: #f8fafc;
+  border-radius: 4px;
+  padding: 16px;
+  overflow: auto;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+// Responsive improvements
+@media screen and (max-width: 42em) {
+  .page-header {
+    padding: 2rem 1rem;
+  }
+  
+  .main-content {
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+} 

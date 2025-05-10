@@ -1,0 +1,38 @@
+; Domain: openprotocol.ai
+
+@       3600    IN  SOA     ns11.domaincontrol.com. dns.jomax.net. (
+                2025050817 ; serial
+                28800       ; refresh
+e               7200        ; retry
+                604800      ; expire
+                3600        ; minimum
+                )
+
+; GitHub Pages A Records (for apex domain)
+@       3600    IN  A       185.199.108.153
+@       3600    IN  A       185.199.109.153
+@       3600    IN  A       185.199.110.153
+@       3600    IN  A       185.199.111.153
+
+; CNAME for www subdomain (required for GitHub Pages)
+www     3600    IN  CNAME   groupthinking.github.io.
+
+; TXT Records
+@       3600    IN  TXT     "ae61f52a704e5724197f6a355f0891"
+@       3600    IN  TXT     "google-site-verification=-RjO9TgkROJcwXn42pxZvKCazlQMA9d4viZAmJwcc4c"
+@       3600    IN  TXT     "v=spf1 include:dc-aa8e722993._spfm.openprotocol.ai ~all"
+dc-aa8e722993._spfm 3600 IN TXT "v=spf1 include:_spf.google.com ~all"
+
+; Domain Connect (GoDaddy default)
+_domainconnect    3600    IN  CNAME   _domainconnect.gd.domaincontrol.com.
+
+; NS Records (GoDaddy)
+@       3600    IN  NS      ns11.domaincontrol.com.
+@       3600    IN  NS      ns12.domaincontrol.com.
+
+; MX Records (Google Workspace / Gmail)
+@       3600    IN  MX 1    aspmx.l.google.com.
+@       3600    IN  MX 5    alt1.aspmx.l.google.com.
+@       3600    IN  MX 5    alt2.aspmx.l.google.com.
+@       3600    IN  MX 10   alt3.aspmx.l.google.com.
+@       3600    IN  MX 10   alt4.aspmx.l.google.com. 
