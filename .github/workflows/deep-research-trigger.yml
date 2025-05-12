@@ -1,0 +1,11 @@
+name: Deep Research Trigger
+on:
+  workflow_dispatch:
+jobs:
+  call-deep-research:
+    uses: ./.github/workflows/deep-research.yml
+    with:
+      target-path: .
+    secrets:
+      DEEPR_PT: ${{ secrets.DEEPR_PT }}
+      DEEPR_SHA256: ${{ secrets.DEEPR_SHA256 }} 

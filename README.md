@@ -5,17 +5,20 @@ This integration connects Open Protocol's MCP (Model Context Protocol) with Goog
 ## Overview
 
 The integration combines:
+
 - **MCP** (TypeScript): For handling Open Protocol context management
 - **Google ADK** (Python): For agent-based workflows using Gemini models
 
 ## Components
 
 ### ADK Microservice
+
 - FastAPI service that exposes Google ADK capabilities
 - Uses a hierarchy of specialized agents for different tasks
 - Exposes a `/generate_report` endpoint for complex topic research
 
 ### MCP Integration
+
 - TypeScript client for connecting to the ADK service
 - Integration with the existing MCP Playground
 - Flag-based routing to choose between ADK and standard MCP
@@ -23,6 +26,7 @@ The integration combines:
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 16+ and npm
 - Python 3.11
 - Docker and Docker Compose (for containerized deployment)
@@ -30,12 +34,14 @@ The integration combines:
 ### Installation
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/groupthinking/Open_Pro.git
 cd Open_Pro
 ```
 
 2. **Install dependencies:**
+
 ```bash
 # MCP (TypeScript)
 npm install
@@ -45,6 +51,7 @@ pip install -r requirements.txt
 ```
 
 3. **Set up environment:**
+
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
@@ -53,11 +60,13 @@ cp .env.example .env
 ### Running Locally
 
 **Start the ADK service:**
+
 ```bash
 uvicorn adk_service:app --host 0.0.0.0 --port 8000
 ```
 
 **Start the MCP service:**
+
 ```bash
 npm start
 ```
@@ -65,6 +74,7 @@ npm start
 ### Docker Deployment
 
 **Using Docker Compose:**
+
 ```bash
 docker-compose up -d
 ```
@@ -72,6 +82,7 @@ docker-compose up -d
 ## Testing
 
 Use the included test script:
+
 ```bash
 ./test-script.sh
 ```
@@ -94,4 +105,4 @@ User request → MCP Playground (checks use_adk flag)
 
 ## Contributing
 
-Contributions are welcome! Please follow the existing code style and add tests for new features. 
+Contributions are welcome! Please follow the existing code style and add tests for new features.

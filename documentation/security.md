@@ -170,4 +170,4 @@ Before deploying to production, verify the following:
 - Configure automatic security scanning in CI/CD pipeline
 - Establish a regular update schedule for dependencies
 - Implement monitoring and alerting for suspicious activities
-- Conduct periodic security reviews of the integration 
+- Conduct periodic security reviews of the integration

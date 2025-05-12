@@ -1,35 +1,36 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from google.adk.agents import LlmAgent
-from google.adk.tools import agent_tool, google_search
-from google.adk.runners import Runner
+import os
+import logging
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize FastAPI
 app = FastAPI()
 
-web_searcher = LlmAgent(model="gemini-2.0-flash", tools=[google_search])
-summarizer = LlmAgent(model="gemini-2.0-flash")
-search_assistant = LlmAgent(
-    model="gemini-2.0-flash",
-    tools=[agent_tool.AgentTool(agent=web_searcher), agent_tool.AgentTool(agent=summarizer)]
-)
-search_planner = LlmAgent(
-    model="gemini-2.5-pro-exp-03-25",
-    tools=[agent_tool.AgentTool(agent=search_assistant)]
-)
-report_writer = LlmAgent(
-    model="gemini-2.0-flash",
-    tools=[agent_tool.AgentTool(agent=search_planner), agent_tool.AgentTool(agent=search_assistant)]
-)
-
-runner = Runner(agent=report_writer)
-
+# Simpler ADK simulation for testing Docker setup
 class Query(BaseModel):
     topic: str
+
+@app.get("/")
+def read_root():
+    return {"status": "ADK service is running"}
+
+@app.get("/docs")
+def read_docs():
+    return {"status": "ADK service documentation"}
 
 @app.post("/generate_report")
 def generate_report(query: Query):
     try:
-        result = runner.run(query.topic)
-        return {"report": result}
+        logger.info(f"Received topic: {query.topic}")
+        # For testing, just return a mock response
+        return {
+            "report": f"This is a simulated report about: {query.topic}\n\nThe integration is working properly.",
+            "status": "success"
+        }
     except Exception as e:
+        logger.error(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e)) 

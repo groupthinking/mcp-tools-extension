@@ -24,6 +24,7 @@ At the heart of Open Protocol is the Model Context Protocol (MCP), which builds 
 ### Why MCP Matters
 
 MCP functions like USB-C for AI systems:
+
 - Creates standardized connections between any data source and AI system
 - Enables secure, controlled information sharing with proper permissions
 - Supports dynamic workflows with real-time context updates
@@ -47,4 +48,4 @@ Open Protocol is a community-driven project that welcomes contributions from dev
 - Contribute to the specification or implementations
 - Build and share MCP-compatible tools
 
-For more information, visit our [documentation](https://github.com/groupthinking/Open_Pro) or reach out to the project maintainers. 
+For more information, visit our [documentation](https://github.com/groupthinking/Open_Pro) or reach out to the project maintainers.

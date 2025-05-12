@@ -8,7 +8,7 @@ export async function fetchADKReport(topic: string): Promise<string> {
   try {
     const response = await axios.post(`${url}/generate_report`, { topic });
     return response.data.report;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`ADK service error: ${error.response?.data?.detail || error.message}`);
   }
 } 

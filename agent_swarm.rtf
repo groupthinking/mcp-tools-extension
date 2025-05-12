@@ -1,0 +1,1547 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 .SFNS-Regular_wdth_opsz1BDB70_GRAD_wght3200000;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 HelveticaNeue-Bold;
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;\f5\fnil\fcharset0 .SFNSMono-Light_YAXS140B3BC_wght1F40000;
+\f6\fnil\fcharset0 HelveticaNeue-Medium;}
+{\colortbl;\red255\green255\blue255;\red193\green193\blue193;\red16\green16\blue16;\red207\green214\blue228;
+\red20\green20\blue20;\red212\green212\blue212;}
+{\*\expandedcolortbl;;\cssrgb\c80000\c80000\c80000\c60000;\cssrgb\c7843\c7843\c7843;\cssrgb\c84706\c87059\c91373;
+\cssrgb\c10196\c10196\c10196;\cssrgb\c86275\c86275\c86275;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid101\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa445\partightenfactor0
+
+\f0\b\fs55\fsmilli27857 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 AI Agent Swarm with Unified Memory Graph\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f1\b0\fs26 \cf2 \cb3 I'll design a comprehensive AI agent swarm system with a unified memory graph. This implementation uses TypeScript and follows a modular architecture for scalability and maintainability.\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 System Architecture\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0\fs22\fsmilli11143 \cf4 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs24 \cf4 \cb5 graph\'a0TD;\cb1 \
+\cb5 \'a0\'a0A["Orchestrator"]\'a0-->\'a0B["Agent\'a0Swarm"]\cb1 \
+\cb5 \'a0\'a0A\'a0-->\'a0C["Memory\'a0Graph"]\cb1 \
+\cb5 \'a0\'a0B\'a0-->\'a0D["Ingestion\'a0Agents"]\cb1 \
+\cb5 \'a0\'a0B\'a0-->\'a0E["Processing\'a0Agents"]\cb1 \
+\cb5 \'a0\'a0B\'a0-->\'a0F["Reasoning\'a0Agents"]\cb1 \
+\cb5 \'a0\'a0D\'a0-->\'a0G["Data\'a0Sources"]\cb1 \
+\cb5 \'a0\'a0C\'a0-->\'a0H["Query\'a0Engine"]\cb1 \
+\cb5 \'a0\'a0E\'a0-->\'a0C\cb1 \
+\cb5 \'a0\'a0F\'a0-->\'a0C\cb1 \
+\cb5 \'a0\'a0D\'a0-->\'a0C\cb1 \
+\cb5 \'a0\'a0H\'a0-->\'a0I["API\'a0Layer"]\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs22\fsmilli11143 \cf4 \
+\
+\pard\pardeftab720\sa297\partightenfactor0
+
+\fs26 \cf2 \cb3 \strokec2 Let's implement the core components:\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 1. Core Types and Interfaces\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 core.ts\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 export type NodeID = string;\
+export type EdgeID = string;\
+export type AgentID = string;\
+export type SourceID = string;\
+\
+export interface Vector \{\
+  dimensions: number;\
+  values: number[];\
+\}\
+\
+export interface Node \{\
+  id: NodeID;\
+  type: string;\
+  properties: Record<string, any>;\
+  embedding?: Vector;\
+  createdAt: Date;\
+  updatedAt: Date;\
+  sourceId: SourceID;\
+  confidence: number;\
+\}\
+\
+export interface Edge \{\
+  id: EdgeID;\
+  type: string;\
+  source: NodeID;\
+  target: NodeID;\
+  properties: Record<string, any>;\
+  weight: number;\
+  createdAt: Date;\
+  updatedAt: Date;\
+  sourceId: SourceID;\
+  confidence: number;\
+\}\
+\
+export interface Agent \{\
+  id: AgentID;\
+  type: string;\
+  capabilities: string[];\
+  status: 'idle' | 'working' | 'error';\
+  lastActive: Date;\
+\}\
+\
+export interface DataSource \{\
+  id: SourceID;\
+  type: string;\
+  name: string;\
+  config: Record<string, any>;\
+  status: 'active' | 'inactive' | 'error';\
+  lastSync: Date;\
+\}\
+\
+export interface Task \{\
+  id: string;\
+  type: string;\
+  status: 'pending' | 'processing' | 'completed' | 'failed';\
+  priority: number;\
+  assignedTo?: AgentID;\
+  data: any;\
+  result?: any;\
+  createdAt: Date;\
+  updatedAt: Date;\
+\}\
+\
+export interface Query \{\
+  type: 'node' | 'edge' | 'path' | 'semantic' | 'reasoning';\
+  filters?: Record<string, any>;\
+  limit?: number;\
+  offset?: number;\
+  semanticQuery?: string;\
+  embedding?: Vector;\
+  similarityThreshold?: number;\
+\}\
+\
+export interface QueryResult \{\
+  nodes: Node[];\
+  edges: Edge[];\
+  paths?: \{from: NodeID, to: NodeID, edges: EdgeID[]\}[];\
+  metadata: \{\
+    total: number;\
+    executionTimeMs: number;\
+  \}\
+\}
+\f5 \cf2 \cb1 \strokec2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 2. Memory Graph Implementation\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 MemoryGraph.ts\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import \{ EventEmitter \} from 'events';\
+import \{ Node, Edge, NodeID, EdgeID, Vector, Query, QueryResult \} from '../types/core';\
+\
+export class MemoryGraph extends EventEmitter \{\
+  private nodes: Map<NodeID, Node> = new Map();\
+  private edges: Map<EdgeID, Edge> = new Map();\
+  private nodeIndices: Map<string, Set<NodeID>> = new Map(); // Property-based indices\
+  private edgeIndices: Map<string, Set<EdgeID>> = new Map(); // Property-based indices\
+  private outgoingEdges: Map<NodeID, Set<EdgeID>> = new Map();\
+  private incomingEdges: Map<NodeID, Set<EdgeID>> = new Map();\
+  private vectorIndex: Map<NodeID, Vector> = new Map();\
+\
+  constructor() \{\
+    super();\
+  \}\
+\
+  public addNode(node: Node): NodeID \{\
+    this.nodes.set(node.id, node);\
+    \
+    // Index node properties\
+    Object.entries(node.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      if (!this.nodeIndices.has(indexKey)) \{\
+        this.nodeIndices.set(indexKey, new Set());\
+      \}\
+      this.nodeIndices.get(indexKey)?.add(node.id);\
+    \});\
+    \
+    // Index node embedding if available\
+    if (node.embedding) \{\
+      this.vectorIndex.set(node.id, node.embedding);\
+    \}\
+    \
+    this.emit('nodeAdded', node);\
+    return node.id;\
+  \}\
+\
+  public addEdge(edge: Edge): EdgeID \{\
+    this.edges.set(edge.id, edge);\
+    \
+    // Update node connections\
+    if (!this.outgoingEdges.has(edge.source)) \{\
+      this.outgoingEdges.set(edge.source, new Set());\
+    \}\
+    this.outgoingEdges.get(edge.source)?.add(edge.id);\
+    \
+    if (!this.incomingEdges.has(edge.target)) \{\
+      this.incomingEdges.set(edge.target, new Set());\
+    \}\
+    this.incomingEdges.get(edge.target)?.add(edge.id);\
+    \
+    // Index edge properties\
+    Object.entries(edge.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      if (!this.edgeIndices.has(indexKey)) \{\
+        this.edgeIndices.set(indexKey, new Set());\
+      \}\
+      this.edgeIndices.get(indexKey)?.add(edge.id);\
+    \});\
+    \
+    this.emit('edgeAdded', edge);\
+    return edge.id;\
+  \}\
+\
+  public getNode(id: NodeID): Node | undefined \{\
+    return this.nodes.get(id);\
+  \}\
+\
+  public getEdge(id: EdgeID): Edge | undefined \{\
+    return this.edges.get(id);\
+  \}\
+\
+  public updateNode(id: NodeID, updates: Partial<Node>): boolean \{\
+    const node = this.nodes.get(id);\
+    if (!node) return false;\
+    \
+    // Remove old indices\
+    Object.entries(node.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      this.nodeIndices.get(indexKey)?.delete(id);\
+    \});\
+    \
+    // Update node\
+    const updatedNode = \{\
+      ...node,\
+      ...updates,\
+      updatedAt: new Date()\
+    \};\
+    this.nodes.set(id, updatedNode);\
+    \
+    // Add new indices\
+    Object.entries(updatedNode.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      if (!this.nodeIndices.has(indexKey)) \{\
+        this.nodeIndices.set(indexKey, new Set());\
+      \}\
+      this.nodeIndices.get(indexKey)?.add(id);\
+    \});\
+    \
+    // Update vector index if embedding changed\
+    if (updates.embedding) \{\
+      this.vectorIndex.set(id, updates.embedding);\
+    \}\
+    \
+    this.emit('nodeUpdated', updatedNode);\
+    return true;\
+  \}\
+\
+  public deleteNode(id: NodeID): boolean \{\
+    const node = this.nodes.get(id);\
+    if (!node) return false;\
+    \
+    // Remove connected edges\
+    const outgoing = this.outgoingEdges.get(id) || new Set();\
+    const incoming = this.incomingEdges.get(id) || new Set();\
+    \
+    [...outgoing, ...incoming].forEach(edgeId => \{\
+      this.deleteEdge(edgeId);\
+    \});\
+    \
+    // Remove from indices\
+    Object.entries(node.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      this.nodeIndices.get(indexKey)?.delete(id);\
+    \});\
+    \
+    // Remove from vector index\
+    this.vectorIndex.delete(id);\
+    \
+    // Remove node\
+    this.nodes.delete(id);\
+    this.outgoingEdges.delete(id);\
+    this.incomingEdges.delete(id);\
+    \
+    this.emit('nodeDeleted', id);\
+    return true;\
+  \}\
+\
+  public deleteEdge(id: EdgeID): boolean \{\
+    const edge = this.edges.get(id);\
+    if (!edge) return false;\
+    \
+    // Remove from indices\
+    Object.entries(edge.properties).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      this.edgeIndices.get(indexKey)?.delete(id);\
+    \});\
+    \
+    // Remove from node connections\
+    this.outgoingEdges.get(edge.source)?.delete(id);\
+    this.incomingEdges.get(edge.target)?.delete(id);\
+    \
+    // Remove edge\
+    this.edges.delete(id);\
+    \
+    this.emit('edgeDeleted', id);\
+    return true;\
+  \}\
+\
+  public query(query: Query): QueryResult \{\
+    const startTime = Date.now();\
+    let resultNodes: Node[] = [];\
+    let resultEdges: Edge[] = [];\
+    \
+    switch (query.type) \{\
+      case 'node':\
+        resultNodes = this.queryNodes(query);\
+        break;\
+      case 'edge':\
+        resultEdges = this.queryEdges(query);\
+        break;\
+      case 'path':\
+        const pathResult = this.queryPaths(query);\
+        resultNodes = pathResult.nodes;\
+        resultEdges = pathResult.edges;\
+        break;\
+      case 'semantic':\
+        resultNodes = this.semanticSearch(query);\
+        break;\
+      case 'reasoning':\
+        const reasoningResult = this.performReasoning(query);\
+        resultNodes = reasoningResult.nodes;\
+        resultEdges = reasoningResult.edges;\
+        break;\
+    \}\
+    \
+    const endTime = Date.now();\
+    \
+    return \{\
+      nodes: resultNodes,\
+      edges: resultEdges,\
+      metadata: \{\
+        total: resultNodes.length + resultEdges.length,\
+        executionTimeMs: endTime - startTime\
+      \}\
+    \};\
+  \}\
+\
+  private queryNodes(query: Query): Node[] \{\
+    if (!query.filters) return Array.from(this.nodes.values());\
+    \
+    // Find nodes matching all filters\
+    const matchingSets: Set<NodeID>[] = [];\
+    \
+    Object.entries(query.filters).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      const matches = this.nodeIndices.get(indexKey);\
+      if (matches) \{\
+        matchingSets.push(matches);\
+      \}\
+    \});\
+    \
+    if (matchingSets.length === 0) return [];\
+    \
+    // Intersect all matching sets\
+    const intersection = new Set([...matchingSets[0]].filter(id => \
+      matchingSets.every(set => set.has(id))\
+    ));\
+    \
+    return Array.from(intersection)\
+      .map(id => this.nodes.get(id)!)\
+      .slice(query.offset || 0, (query.offset || 0) + (query.limit || Infinity));\
+  \}\
+\
+  private queryEdges(query: Query): Edge[] \{\
+    if (!query.filters) return Array.from(this.edges.values());\
+    \
+    // Find edges matching all filters\
+    const matchingSets: Set<EdgeID>[] = [];\
+    \
+    Object.entries(query.filters).forEach(([key, value]) => \{\
+      const indexKey = `$\{key\}:$\{value\}`;\
+      const matches = this.edgeIndices.get(indexKey);\
+      if (matches) \{\
+        matchingSets.push(matches);\
+      \}\
+    \});\
+    \
+    if (matchingSets.length === 0) return [];\
+    \
+    // Intersect all matching sets\
+    const intersection = new Set([...matchingSets[0]].filter(id => \
+      matchingSets.every(set => set.has(id))\
+    ));\
+    \
+    return Array.from(intersection)\
+      .map(id => this.edges.get(id)!)\
+      .slice(query.offset || 0, (query.offset || 0) + (query.limit || Infinity));\
+  \}\
+\
+  private queryPaths(query: Query): \{ nodes: Node[], edges: Edge[] \} \{\
+    // Simplified implementation - would use algorithms like Dijkstra or A* in production\
+    const resultNodes: Node[] = [];\
+    const resultEdges: Edge[] = [];\
+    \
+    // For demo purposes, just return some connected nodes\
+    if (query.filters && 'startNode' in query.filters) \{\
+      const startNodeId = query.filters.startNode as NodeID;\
+      const visited = new Set<NodeID>([startNodeId]);\
+      const queue: NodeID[] = [startNodeId];\
+      \
+      const depth = (query.filters.depth as number) || 2;\
+      let currentDepth = 0;\
+      \
+      while (queue.length > 0 && currentDepth < depth) \{\
+        const levelSize = queue.length;\
+        \
+        for (let i = 0; i < levelSize; i++) \{\
+          const nodeId = queue.shift()!;\
+          const node = this.nodes.get(nodeId);\
+          if (node) resultNodes.push(node);\
+          \
+          // Get outgoing edges\
+          const outEdgeIds = this.outgoingEdges.get(nodeId) || new Set();\
+          for (const edgeId of outEdgeIds) \{\
+            const edge = this.edges.get(edgeId);\
+            if (!edge) continue;\
+            \
+            resultEdges.push(edge);\
+            if (!visited.has(edge.target)) \{\
+              visited.add(edge.target);\
+              queue.push(edge.target);\
+            \}\
+          \}\
+        \}\
+        \
+        currentDepth++;\
+      \}\
+    \}\
+    \
+    return \{ nodes: resultNodes, edges: resultEdges \};\
+  \}\
+\
+  private semanticSearch(query: Query): Node[] \{\
+    if (!query.embedding) return [];\
+    \
+    // Calculate cosine similarity with all nodes that have embeddings\
+    const similarities: [NodeID, number][] = [];\
+    \
+    for (const [nodeId, embedding] of this.vectorIndex.entries()) \{\
+      const similarity = this.cosineSimilarity(query.embedding, embedding);\
+      if (similarity >= (query.similarityThreshold || 0.7)) \{\
+        similarities.push([nodeId, similarity]);\
+      \}\
+    \}\
+    \
+    // Sort by similarity (descending)\
+    similarities.sort((a, b) => b[1] - a[1]);\
+    \
+    // Return top matches\
+    return similarities\
+      .slice(0, query.limit || 10)\
+      .map(([nodeId]) => this.nodes.get(nodeId)!)\
+      .filter(Boolean);\
+  \}\
+\
+  private performReasoning(query: Query): \{ nodes: Node[], edges: Edge[] \} \{\
+    // This would implement more complex reasoning algorithms\
+    // For now, we'll just return a simple subgraph\
+    return this.queryPaths(query);\
+  \}\
+\
+  private cosineSimilarity(a: Vector, b: Vector): number \{\
+    if (a.dimensions !== b.dimensions) return 0;\
+    \
+    let dotProduct = 0;\
+    let normA = 0;\
+    let normB = 0;\
+    \
+    for (let i = 0; i < a.dimensions; i++) \{\
+      dotProduct += a.values[i] * b.values[i];\
+      normA += a.values[i] * a.values[i];\
+      normB += b.values[i] * b.values[i];\
+    \}\
+    \
+    normA = Math.sqrt(normA);\
+    normB = Math.sqrt(normB);\
+    \
+    if (normA === 0 || normB === 0) return 0;\
+    return dotProduct / (normA * normB);\
+  \}\
+\
+  public getStats(): Record<string, any> \{\
+    return \{\
+      nodeCount: this.nodes.size,\
+      edgeCount: this.edges.size,\
+      nodeTypes: this.countByProperty(this.nodes, 'type'),\
+      edgeTypes: this.countByProperty(this.edges, 'type'),\
+      memoryUsage: process.memoryUsage()\
+    \};\
+  \}\
+\
+  private countByProperty<T extends \{ type: string \}>(\
+    items: Map<string, T>,\
+    property: keyof T\
+  ): Record<string, number> \{\
+    const counts: Record<string, number> = \{\};\
+    \
+    for (const item of items.values()) \{\
+      const value = String(item[property]);\
+      counts[value] = (counts[value] || 0) + 1;\
+    \}\
+    \
+    return counts;\
+  \}\
+\}
+\f3\fs24 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \strokec2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 3. Agent Swarm Implementation\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 AgentSwarm.ts\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import \{ EventEmitter \} from 'events';\
+import \{ Agent, AgentID, Task \} from '../types/core';\
+import \{ MemoryGraph \} from './MemoryGraph';\
+\
+export class AgentSwarm extends EventEmitter \{\
+  private agents: Map<AgentID, Agent> = new Map();\
+  private taskQueue: Task[] = [];\
+  private memoryGraph: MemoryGraph;\
+  private isProcessing: boolean = false;\
+\
+  constructor(memoryGraph: MemoryGraph) \{\
+    super();\
+    this.memoryGraph = memoryGraph;\
+  \}\
+\
+  public registerAgent(agent: Agent): AgentID \{\
+    this.agents.set(agent.id, agent);\
+    this.emit('agentRegistered', agent);\
+    return agent.id;\
+  \}\
+\
+  public unregisterAgent(id: AgentID): boolean \{\
+    const agent = this.agents.get(id);\
+    if (!agent) return false;\
+    \
+    this.agents.delete(id);\
+    this.emit('agentUnregistered', id);\
+    \
+    // Reassign tasks from this agent\
+    this.taskQueue.forEach(task => \{\
+      if (task.assignedTo === id) \{\
+        task.assignedTo = undefined;\
+        task.status = 'pending';\
+      \}\
+    \});\
+    \
+    return true;\
+  \}\
+\
+  public submitTask(task: Task): string \{\
+    this.taskQueue.push(task);\
+    this.emit('taskSubmitted', task);\
+    \
+    // Start processing if not already\
+    if (!this.isProcessing) \{\
+      this.processTasks();\
+    \}\
+    \
+    return task.id;\
+  \}\
+\
+  private async processTasks(): Promise<void> \{\
+    if (this.isProcessing) return;\
+    this.isProcessing = true;\
+    \
+    while (this.taskQueue.length > 0) \{\
+      // Sort by priority\
+      this.taskQueue.sort((a, b) => b.priority - a.priority);\
+      \
+      const task = this.taskQueue[0];\
+      \
+      // Find suitable agent\
+      const agent = this.findSuitableAgent(task);\
+      if (!agent) \{\
+        // No suitable agent, wait and try again\
+        await new Promise(resolve => setTimeout(resolve, 1000));\
+        continue;\
+      \}\
+      \
+      // Assign task\
+      task.assignedTo = agent.id;\
+      task.status = 'processing';\
+      this.updateAgentStatus(agent.id, 'working');\
+      \
+      try \{\
+        // Process task\
+        const result = await this.executeTask(task, agent);\
+        \
+        // Update task\
+        task.status = 'completed';\
+        task.result = result;\
+        task.updatedAt = new Date();\
+        \
+        this.emit('taskCompleted', task);\
+      \} catch (error) \{\
+        // Handle error\
+        task.status = 'failed';\
+        task.result = \{ error: error.message \};\
+        task.updatedAt = new Date();\
+        \
+        this.emit('taskFailed', task, error);\
+      \}\
+      \
+      // Update agent status\
+      this.updateAgentStatus(agent.id, 'idle');\
+      \
+      // Remove task from queue\
+      this.taskQueue.shift();\
+    \}\
+    \
+    this.isProcessing = false;\
+  \}\
+\
+  private findSuitableAgent(task: Task): Agent | undefined \{\
+    // Find idle agent with required capabilities\
+    for (const agent of this.agents.values()) \{\
+      if (\
+        agent.status === 'idle' &&\
+        agent.capabilities.includes(task.type)\
+      ) \{\
+        return agent;\
+      \}\
+    \}\
+    \
+    return undefined;\
+  \}\
+\
+  private updateAgentStatus(id: AgentID, status: Agent['status']): void \{\
+    const agent = this.agents.get(id);\
+    if (!agent) return;\
+    \
+    agent.status = status;\
+    agent.lastActive = new Date();\
+    \
+    this.agents.set(id, agent);\
+    this.emit('agentStatusChanged', agent);\
+  \}\
+\
+  private async executeTask(task: Task, agent: Agent): Promise<any> \{\
+    // This would delegate to the actual agent implementation\
+    // For now, we'll simulate different task types\
+    \
+    switch (task.type) \{\
+      case 'ingest':\
+        return this.simulateIngestion(task);\
+      case 'process':\
+        return this.simulateProcessing(task);\
+      case 'reason':\
+        return this.simulateReasoning(task);\
+      default:\
+        throw new Error(`Unknown task type: $\{task.type\}`);\
+    \}\
+  \}\
+\
+  private async simulateIngestion(task: Task): Promise<any> \{\
+    // Simulate data ingestion\
+    const \{ source, data \} = task.data;\
+    \
+    // Create nodes from data\
+    const nodes = data.map((item: any) => (\{\
+      id: `node-$\{Date.now()\}-$\{Math.random().toString(36).substr(2, 9)\}`,\
+      type: item.type || 'entity',\
+      properties: item.properties || \{\},\
+      createdAt: new Date(),\
+      updatedAt: new Date(),\
+      sourceId: source.id,\
+      confidence: 0.95\
+    \}));\
+    \
+    // Add nodes to memory graph\
+    nodes.forEach(node => this.memoryGraph.addNode(node));\
+    \
+    // Create edges between nodes if specified\
+    if (task.data.relationships) \{\
+      task.data.relationships.forEach((rel: any) => \{\
+        const edge = \{\
+          id: `edge-$\{Date.now()\}-$\{Math.random().toString(36).substr(2, 9)\}`,\
+          type: rel.type || 'related',\
+          source: rel.source,\
+          target: rel.target,\
+          properties: rel.properties || \{\},\
+          weight: rel.weight || 1.0,\
+          createdAt: new Date(),\
+          updatedAt: new Date(),\
+          sourceId: source.id,\
+          confidence: 0.9\
+        \};\
+        \
+        this.memoryGraph.addEdge(edge);\
+      \});\
+    \}\
+    \
+    return \{ nodesAdded: nodes.length \};\
+  \}\
+\
+  private async simulateProcessing(task: Task): Promise<any> \{\
+    // Simulate data processing (e.g., embedding generation)\
+    const \{ nodeIds \} = task.data;\
+    \
+    for (const nodeId of nodeIds) \{\
+      const node = this.memoryGraph.getNode(nodeId);\
+      if (!node) continue;\
+      \
+      // Generate mock embedding\
+      const embedding = \{\
+        dimensions: 128,\
+        values: Array.from(\{ length: 128 \}, () => Math.random() * 2 - 1)\
+      \};\
+      \
+      // Update node with embedding\
+      this.memoryGraph.updateNode(nodeId, \{ embedding \});\
+    \}\
+    \
+    return \{ nodesProcessed: nodeIds.length \};\
+  \}\
+\
+  private async simulateReasoning(task: Task): Promise<any> \{\
+    // Simulate reasoning over the graph\
+    const \{ query \} = task.data;\
+    \
+    // Perform query\
+    const result = this.memoryGraph.query(query);\
+    \
+    // Generate insights (in a real system, this would use more sophisticated reasoning)\
+    const insights = [\
+      `Found $\{result.nodes.length\} nodes and $\{result.edges.length\} edges matching the query.`,\
+      `The most common node type is $\{this.findMostCommon(result.nodes.map(n => n.type))\}.`,\
+      `Query executed in $\{result.metadata.executionTimeMs\}ms.`\
+    ];\
+    \
+    return \{ result, insights \};\
+  \}\
+\
+  private findMostCommon<T>(items: T[]): T | undefined \{\
+    if (items.length === 0) return undefined;\
+    \
+    const counts = new Map<T, number>();\
+    let maxCount = 0;\
+    let maxItem: T | undefined = undefined;\
+    \
+    for (const item of items) \{\
+      const count = (counts.get(item) || 0) + 1;\
+      counts.set(item, count);\
+      \
+      if (count > maxCount) \{\
+        maxCount = count;\
+        maxItem = item;\
+      \}\
+    \}\
+    \
+    return maxItem;\
+  \}\
+\
+  public getStats(): Record<string, any> \{\
+    return \{\
+      agentCount: this.agents.size,\
+      taskQueueLength: this.taskQueue.length,\
+      agentsByStatus: this.countByStatus(),\
+      tasksByStatus: this.countTasksByStatus()\
+    \};\
+  \}\
+\
+  private countByStatus(): Record<string, number> \{\
+    const counts: Record<string, number> = \{\
+      idle: 0,\
+      working: 0,\
+      error: 0\
+    \};\
+    \
+    for (const agent of this.agents.values()) \{\
+      counts[agent.status] = (counts[agent.status] || 0) + 1;\
+    \}\
+    \
+    return counts;\
+  \}\
+\
+  private countTasksByStatus(): Record<string, number> \{\
+    const counts: Record<string, number> = \{\
+      pending: 0,\
+      processing: 0,\
+      completed: 0,\
+      failed: 0\
+    \};\
+    \
+    for (const task of this.taskQueue) \{\
+      counts[task.status] = (counts[task.status] || 0) + 1;\
+    \}\
+    \
+    return counts;\
+  \}\
+\}
+\f4\fs22 \cf2 \cb1 \strokec2 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs18 \cf2 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 4. Data Source Manager\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 DataSourceManager.ts\cb1 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs18 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import \{ EventEmitter \} from 'events';\
+import \{ DataSource, SourceID, Task \} from '../types/core';\
+import \{ AgentSwarm \} from './AgentSwarm';\
+\
+export class DataSourceManager extends EventEmitter \{\
+  private sources: Map<SourceID, DataSource> = new Map();\
+  private agentSwarm: AgentSwarm;\
+  private activePollers: Map<SourceID, NodeJS.Timeout> = new Map();\
+\
+  constructor(agentSwarm: AgentSwarm) \{\
+    super();\
+    this.agentSwarm = agentSwarm;\
+  \}\
+\
+  public registerSource(source: DataSource): SourceID \{\
+    this.sources.set(source.id, source);\
+    \
+    // Start polling if source is active\
+    if (source.status === 'active') \{\
+      this.startPolling(source.id);\
+    \}\
+    \
+    this.emit('sourceRegistered', source);\
+    return source.id;\
+  \}\
+\
+  public unregisterSource(id: SourceID): boolean \{\
+    const source = this.sources.get(id);\
+    if (!source) return false;\
+    \
+    // Stop polling\
+    this.stopPolling(id);\
+    \
+    this.sources.delete(id);\
+    this.emit('sourceUnregistered', id);\
+    \
+    return true;\
+  \}\
+\
+  public updateSourceStatus(id: SourceID, status: DataSource['status']): boolean \{\
+    const source = this.sources.get(id);\
+    if (!source) return false;\
+    \
+    source.status = status;\
+    this.sources.set(id, source);\
+    \
+    // Start or stop polling based on new status\
+    if (status === 'active') \{\
+      this.startPolling(id);\
+    \} else \{\
+      this.stopPolling(id);\
+    \}\
+    \
+    this.emit('sourceStatusChanged', source);\
+    return true;\
+  \}\
+\
+  private startPolling(id: SourceID): void \{\
+    if (this.activePollers.has(id)) return;\
+    \
+    const source = this.sources.get(id);\
+    if (!source) return;\
+    \
+    // Determine polling interval from config or use default\
+    const interval = source.config.pollingInterval || 60000; // Default: 1 minute\
+    \
+    const timer = setInterval(() => \{\
+      this.pollSource(id).catch(error => \{\
+        console.error(`Error polling source $\{id\}:`, error);\
+        this.updateSourceStatus(id, 'error');\
+      \});\
+    \}, interval);\
+    \
+    this.activePollers.set(id, timer);\
+  \}\
+\
+  private stopPolling(id: SourceID): void \{\
+    const timer = this.activePollers.get(id);\
+    if (timer) \{\
+      clearInterval(timer);\
+      this.activePollers.delete(id);\
+    \}\
+  \}\
+\
+  private async pollSource(id: SourceID): Promise<void> \{\
+    const source = this.sources.get(id);\
+    if (!source) return;\
+    \
+    // Update last sync time\
+    source.lastSync = new Date();\
+    this.sources.set(id, source);\
+    \
+    // Fetch data from source\
+    const data = await this.fetchFromSource(source);\
+    \
+    // Create ingestion task\
+    const task: Task = \{\
+      id: `task-$\{Date.now()\}-$\{Math.random().toString(36).substr(2, 9)\}`,\
+      type: 'ingest',\
+      status: 'pending',\
+      priority: 1,\
+      data: \{\
+        source,\
+        data\
+      \},\
+      createdAt: new Date(),\
+      updatedAt: new Date()\
+    \};\
+    \
+    // Submit task to agent swarm\
+    this.agentSwarm.submitTask(task);\
+  \}\
+\
+  private async fetchFromSource(source: DataSource): Promise<any[]> \{\
+    // This would implement actual data fetching logic for different source types\
+    // For now, we'll return mock data\
+    \
+    switch (source.type) \{\
+      case 'rest-api':\
+        return this.mockRestApiData(source);\
+      case 'database':\
+        return this.mockDatabaseData(source);\
+      case 'file-system':\
+        return this.mockFileSystemData(source);\
+      default:\
+        return [];\
+    \}\
+  \}\
+\
+  private mockRestApiData(source: DataSource): any[] \{\
+    // Mock data for REST API source\
+    return [\
+      \{\
+        type: 'article',\
+        properties: \{\
+          title: 'Understanding AI Agent Swarms',\
+          author: 'AI Researcher',\
+          publishedDate: new Date().toISOString(),\
+          content: 'AI agent swarms represent a new paradigm in distributed intelligence...'\
+        \}\
+      \},\
+      \{\
+        type: 'person',\
+        properties: \{\
+          name: 'AI Researcher',\
+          expertise: ['artificial intelligence', 'multi-agent systems', 'knowledge graphs']\
+        \}\
+      \}\
+    ];\
+  \}\
+\
+  private mockDatabaseData(source: DataSource): any[] \{\
+    // Mock data for database source\
+    return [\
+      \{\
+        type: 'customer',\
+        properties: \{\
+          id: 'cust-123',\
+          name: 'Acme Corp',\
+          industry: 'Technology',\
+          revenue: 5000private mockDatabaseData(source: DataSource): any[] \{\
+    // Mock data for database source\
+    return [\
+      \{\
+        type: 'customer',\
+        properties: \{\
+          id: 'cust-123',\
+          name: 'Acme Corp',\
+          industry: 'Technology',\
+          revenue: 5000000\
+        \}\
+      \},\
+      \{\
+        type: 'product',\
+        properties: \{\
+          id: 'prod-456',\
+          name: 'Enterprise AI Platform',\
+          category: 'Software',\
+          price: 25000\
+        \}\
+      \},\
+      \{\
+        type: 'transaction',\
+        properties: \{\
+          id: 'txn-789',\
+          customerId: 'cust-123',\
+          productId: 'prod-456',\
+          date: new Date().toISOString(),\
+          amount: 75000\
+        \}\
+      \}\
+    ];\
+  \}\
+\
+  private mockFileSystemData(source: DataSource): any[] \{\
+    // Mock data for file system source\
+    return [\
+      \{\
+        type: 'document',\
+        properties: \{\
+          filename: 'research-paper.pdf',\
+          path: '/documents/research/2023/',\
+          size: 2500000,\
+          created: new Date().toISOString(),\
+          content: 'This research paper explores the applications of agent swarms in enterprise settings...'\
+        \}\
+      \},\
+      \{\
+        type: 'image',\
+        properties: \{\
+          filename: 'architecture-diagram.png',\
+          path: '/images/diagrams/',\
+          size: 1200000,\
+          created: new Date().toISOString(),\
+          dimensions: '1920x1080'\
+        \}\
+      \}\
+    ];\
+  \}\
+\
+  public getStats(): Record<string, any> \{\
+    return \{\
+      sourceCount: this.sources.size,\
+      activeSourceCount: Array.from(this.sources.values()).filter(s => s.status === 'active').length,\
+      sourcesByType: this.countByType(),\
+      averageSyncInterval: this.calculateAverageSyncInterval()\
+    \};\
+  \}\
+\
+  private countByType(): Record<string, number> \{\
+    const counts: Record<string, number> = \{\};\
+    \
+    for (const source of this.sources.values()) \{\
+      counts[source.type] = (counts[source.type] || 0) + 1;\
+    \}\
+    \
+    return counts;\
+  \}\
+\
+  private calculateAverageSyncInterval(): number \{\
+    const intervals = Array.from(this.sources.values())\
+      .filter(s => s.config.pollingInterval)\
+      .map(s => s.config.pollingInterval as number);\
+    \
+    if (intervals.length === 0) return 0;\
+    \
+    return intervals.reduce((sum, interval) => sum + interval, 0) / intervals.length;\
+  \}\
+\}
+\f3\fs24 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \strokec2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 5. Orchestrator Implementation\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 Orchestrator.ts\cb1 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs18 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import \{ EventEmitter \} from 'events';\
+import \{ MemoryGraph \} from './MemoryGraph';\
+import \{ AgentSwarm \} from './AgentSwarm';\
+import \{ DataSourceManager \} from './DataSourceManager';\
+import \{ Query, QueryResult, Task, Agent, DataSource \} from '../types/core';\
+\
+export class Orchestrator extends EventEmitter \{\
+  private memoryGraph: MemoryGraph;\
+  private agentSwarm: AgentSwarm;\
+  private dataSourceManager: DataSourceManager;\
+\
+  constructor() \{\
+    super();\
+    this.memoryGraph = new MemoryGraph();\
+    this.agentSwarm = new AgentSwarm(this.memoryGraph);\
+    this.dataSourceManager = new DataSourceManager(this.agentSwarm);\
+    \
+    this.setupEventListeners();\
+  \}\
+\
+  private setupEventListeners(): void \{\
+    // Memory Graph events\
+    this.memoryGraph.on('nodeAdded', node => \{\
+      this.emit('memoryUpdate', \{ type: 'nodeAdded', data: node \});\
+    \});\
+    \
+    this.memoryGraph.on('edgeAdded', edge => \{\
+      this.emit('memoryUpdate', \{ type: 'edgeAdded', data: edge \});\
+    \});\
+    \
+    // Agent Swarm events\
+    this.agentSwarm.on('taskCompleted', task => \{\
+      this.emit('taskUpdate', \{ type: 'completed', data: task \});\
+    \});\
+    \
+    this.agentSwarm.on('taskFailed', (task, error) => \{\
+      this.emit('taskUpdate', \{ type: 'failed', data: task, error \});\
+    \});\
+    \
+    // Data Source events\
+    this.dataSourceManager.on('sourceStatusChanged', source => \{\
+      this.emit('sourceUpdate', \{ type: 'statusChanged', data: source \});\
+    \});\
+  \}\
+\
+  public query(query: Query): Promise<QueryResult> \{\
+    return Promise.resolve(this.memoryGraph.query(query));\
+  \}\
+\
+  public submitTask(task: Task): string \{\
+    return this.agentSwarm.submitTask(task);\
+  \}\
+\
+  public registerAgent(agent: Agent): string \{\
+    return this.agentSwarm.registerAgent(agent);\
+  \}\
+\
+  public registerDataSource(source: DataSource): string \{\
+    return this.dataSourceManager.registerSource(source);\
+  \}\
+\
+  public async performReasoning(query: Query): Promise<any> \{\
+    const task: Task = \{\
+      id: `task-$\{Date.now()\}-$\{Math.random().toString(36).substr(2, 9)\}`,\
+      type: 'reason',\
+      status: 'pending',\
+      priority: 2, // Higher priority for reasoning tasks\
+      data: \{ query \},\
+      createdAt: new Date(),\
+      updatedAt: new Date()\
+    \};\
+    \
+    const taskId = this.agentSwarm.submitTask(task);\
+    \
+    // Wait for task completion\
+    return new Promise((resolve, reject) => \{\
+      const listener = (update: any) => \{\
+        if (update.data.id === taskId) \{\
+          if (update.type === 'completed') \{\
+            this.removeListener('taskUpdate', listener);\
+            resolve(update.data.result);\
+          \} else if (update.type === 'failed') \{\
+            this.removeListener('taskUpdate', listener);\
+            reject(new Error(update.error || 'Task failed'));\
+          \}\
+        \}\
+      \};\
+      \
+      this.on('taskUpdate', listener);\
+    \});\
+  \}\
+\
+  public getSystemStats(): Record<string, any> \{\
+    return \{\
+      memory: this.memoryGraph.getStats(),\
+      agents: this.agentSwarm.getStats(),\
+      sources: this.dataSourceManager.getStats(),\
+      system: \{\
+        uptime: process.uptime(),\
+        timestamp: new Date().toISOString()\
+      \}\
+    \};\
+  \}\
+\}
+\f3\fs24 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \strokec2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 6. API Layer Implementation\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 ApiServer.ts\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import express from 'express';\
+import cors from 'cors';\
+import \{ Orchestrator \} from '../core/Orchestrator';\
+import \{ Query, Task, Agent, DataSource \} from '../types/core';\
+\
+export class ApiServer \{\
+  private app: express.Application;\
+  private orchestrator: Orchestrator;\
+  private port: number;\
+\
+  constructor(orchestrator: Orchestrator, port: number = 3000) \{\
+    this.app = express();\
+    this.orchestrator = orchestrator;\
+    this.port = port;\
+    \
+    this.setupMiddleware();\
+    this.setupRoutes();\
+  \}\
+\
+  private setupMiddleware(): void \{\
+    this.app.use(express.json());\
+    this.app.use(cors());\
+    this.app.use(express.urlencoded(\{ extended: true \}));\
+  \}\
+\
+  private setupRoutes(): void \{\
+    // Query endpoints\
+    this.app.post('/api/query', async (req, res) => \{\
+      try \{\
+        const query: Query = req.body;\
+        const result = await this.orchestrator.query(query);\
+        res.json(result);\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+    \
+    // Task endpoints\
+    this.app.post('/api/tasks', (req, res) => \{\
+      try \{\
+        const task: Task = req.body;\
+        const taskId = this.orchestrator.submitTask(task);\
+        res.json(\{ taskId \});\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+    \
+    // Agent endpoints\
+    this.app.post('/api/agents', (req, res) => \{\
+      try \{\
+        const agent: Agent = req.body;\
+        const agentId = this.orchestrator.registerAgent(agent);\
+        res.json(\{ agentId \});\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+    \
+    // Data source endpoints\
+    this.app.post('/api/sources', (req, res) => \{\
+      try \{\
+        const source: DataSource = req.body;\
+        const sourceId = this.orchestrator.registerDataSource(source);\
+        res.json(\{ sourceId \});\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+    \
+    // Reasoning endpoint\
+    this.app.post('/api/reason', async (req, res) => \{\
+      try \{\
+        const query: Query = req.body;\
+        const result = await this.orchestrator.performReasoning(query);\
+        res.json(result);\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+    \
+    // System stats endpoint\
+    this.app.get('/api/stats', (req, res) => \{\
+      try \{\
+        const stats = this.orchestrator.getSystemStats();\
+        res.json(stats);\
+      \} catch (error) \{\
+        res.status(500).json(\{ error: error.message \});\
+      \}\
+    \});\
+  \}\
+\
+  public start(): void \{\
+    this.app.listen(this.port, () => \{\
+      console.log(`API server listening on port $\{this.port\}`);\
+    \});\
+  \}\
+\}
+\f4\fs22 \cf2 \cb1 \strokec2 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 7. Main Application Entry Point\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\b0\fs22\fsmilli11143 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs22 \cf2 \cb3 index.ts\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs26 \cf4 \cb3 \strokec4 import \{ Orchestrator \} from './core/Orchestrator';\
+import \{ ApiServer \} from './api/ApiServer';\
+\
+// Create orchestrator\
+const orchestrator = new Orchestrator();\
+\
+// Register some example agents\
+orchestrator.registerAgent(\{\
+  id: 'agent-ingest-1',\
+  type: 'ingestion',\
+  capabilities: ['ingest'],\
+  status: 'idle',\
+  lastActive: new Date()\
+\});\
+\
+orchestrator.registerAgent(\{\
+  id: 'agent-process-1',\
+  type: 'processor',\
+  capabilities: ['process'],\
+  status: 'idle',\
+  lastActive: new Date()\
+\});\
+\
+orchestrator.registerAgent(\{\
+  id: 'agent-reason-1',\
+  type: 'reasoner',\
+  capabilities: ['reason'],\
+  status: 'idle',\
+  lastActive: new Date()\
+\});\
+\
+// Register some example data sources\
+orchestrator.registerDataSource(\{\
+  id: 'source-api-1',\
+  type: 'rest-api',\
+  name: 'News API',\
+  config: \{\
+    url: 'https://api.example.com/news',\
+    pollingInterval: 300000 // 5 minutes\
+  \},\
+  status: 'active',\
+  lastSync: new Date()\
+\});\
+\
+orchestrator.registerDataSource(\{\
+  id: 'source-db-1',\
+  type: 'database',\
+  name: 'Customer Database',\
+  config: \{\
+    connectionString: 'postgresql://user:password@localhost:5432/customers',\
+    pollingInterval: 600000 // 10 minutes\
+  \},\
+  status: 'active',\
+  lastSync: new Date()\
+\});\
+\
+// Start API server\
+const apiServer = new ApiServer(orchestrator, 3000);\
+apiServer.start();\
+\
+console.log('AI Agent Swarm with Unified Memory Graph started');
+\fs22\fsmilli11143 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\f5\fs26 \cf2 \strokec2 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 8. Example Usage\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f1\b0\fs26 \cf2 \cb3 Here's how you can use this system:\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3 \strokec4 import axios from 'axios';\
+\
+// Base URL for API\
+const API_URL = 'http://localhost:3000/api';\
+\
+// Example: Query the memory graph\
+async function queryMemory() \{\
+  const query = \{\
+    type: 'node',\
+    filters: \{\
+      type: 'article'\
+    \},\
+    limit: 10\
+  \};\
+  \
+  const response = await axios.post(`$\{API_URL\}/query`, query);\
+  console.log('Query results:', response.data);\
+\}\
+\
+// Example: Submit a task\
+async function submitTask() \{\
+  const task = \{\
+    id: `task-$\{Date.now()\}`,\
+    type: 'ingest',\
+    status: 'pending',\
+    priority: 1,\
+    data: \{\
+      source: \{\
+        id: 'manual-input',\
+        type: 'user-input',\
+        name: 'User Input'\
+      \},\
+      data: [\
+        \{\
+          type: 'concept',\
+          properties: \{\
+            name: 'Agent Swarm',\
+            description: 'A coordinated group of AI agents working together to solve complex problems.'\
+          \}\
+        \}\
+      ]\
+    \},\
+    createdAt: new Date(),\
+    updatedAt: new Date()\
+  \};\
+  \
+  const response = await axios.post(`$\{API_URL\}/tasks`, task);\
+  console.log('Task submitted:', response.data);\
+\}\
+\
+// Example: Perform reasoning\
+async function performReasoning() \{\
+  const query = \{\
+    type: 'reasoning',\
+    filters: \{\
+      startNode: 'concept-1', // Assuming this node exists\
+      depth: 3\
+    \}\
+  \};\
+  \
+  const response = await axios.post(`$\{API_URL\}/reason`, query);\
+  console.log('Reasoning results:', response.data);\
+\}\
+\
+// Example: Get system stats\
+async function getSystemStats() \{\
+  const response = await axios.get(`$\{API_URL\}/stats`);\
+  console.log('System stats:', response.data);\
+\}\
+\
+// Run examples\
+async function runExamples() \{\
+  try \{\
+    console.log('Running examples...');\
+    \
+    await submitTask();\
+    console.log('Waiting for task processing...');\
+    await new Promise(resolve => setTimeout(resolve, 2000));\
+    \
+    await queryMemory();\
+    await performReasoning();\
+    await getSystemStats();\
+    \
+    console.log('Examples completed.');\
+  \} catch (error) \{\
+    console.error('Error running examples:', error.message);\
+  \}\
+\}\
+\
+runExamples();
+\f3\fs24 \cf6 \cb5 \strokec6 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f2\b\fs37\fsmilli18571 \cf2 \cb3 \strokec2 Conclusion\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+
+\f1\b0\fs26 \cf2 \cb3 This implementation provides a comprehensive AI agent swarm system with a unified memory graph. The key components include:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa74\partightenfactor0
+\ls1\ilvl0
+\f6\b \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Memory Graph
+\f1\b0 : A flexible graph-based knowledge representation system with efficient querying capabilities.\cb1 \
+\ls1\ilvl0
+\f6\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Agent Swarm
+\f1\b0 : A coordinated system of specialized AI agents that can process different types of tasks.\cb1 \
+\ls1\ilvl0
+\f6\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Data Source Manager
+\f1\b0 : Handles data ingestion from various sources with configurable polling intervals.\cb1 \
+\ls1\ilvl0
+\f6\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Orchestrator
+\f1\b0 : Coordinates the entire system and provides a unified interface for operations.\cb1 \
+\ls1\ilvl0
+\f6\b \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	5	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 API Layer
+\f1\b0 : Exposes the system's functionality through a RESTful API.\cb1 \
+\pard\pardeftab720\sa297\partightenfactor0
+\cf2 \cb3 The system is designed to be extensible and scalable, allowing for the addition of new agent types, data sources, and reasoning capabilities. The memory graph provides a unified representation of knowledge that can be queried and reasoned over by the agent swarm.\cb1 \
+\cb3 For production use, you would want to enhance this system with:\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa74\partightenfactor0
+\ls2\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Authentication and authorization for the API\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Persistent storage for the memory graph\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 More sophisticated agent implementations\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Advanced reasoning algorithms\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	5	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Monitoring and logging infrastructure\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	6	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Horizontal scaling capabilities\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 This implementation provides a solid foundation that can be extended to meet specific requirements.\cb1 \
+\
+}
