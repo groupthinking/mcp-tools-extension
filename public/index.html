@@ -9,6 +9,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  
+  <!-- Material Web Components from CDN -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/button/filled-button.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/button/outlined-button.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/button/text-button.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/checkbox/checkbox.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/icon/icon.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/iconbutton/icon-button.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/tabs/tabs.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/tabs/primary-tab.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/textfield/filled-text-field.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/textfield/outlined-text-field.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/elevation/elevation.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/card/elevated-card.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web@1.0.0/card/outlined-card.js"></script>
 </head>
 <body>
   <header>
@@ -19,10 +34,10 @@
       </div>
       <nav>
         <md-tabs>
-          <md-primary-tab>Home</md-primary-tab>
-          <md-primary-tab>Documentation</md-primary-tab>
-          <md-primary-tab>API</md-primary-tab>
-          <md-primary-tab>Examples</md-primary-tab>
+          <md-primary-tab id="tab-home">Home</md-primary-tab>
+          <md-primary-tab id="tab-docs">Documentation</md-primary-tab>
+          <md-primary-tab id="tab-api">API</md-primary-tab>
+          <md-primary-tab id="tab-examples">Examples</md-primary-tab>
         </md-tabs>
       </nav>
       <div class="theme-toggle">
@@ -34,109 +49,210 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <h2>Model Context Protocol + Google ADK</h2>
-        <p>A powerful integration between Open Protocol's MCP and Google's Agent Development Kit</p>
-        <div class="button-group">
-          <md-filled-button>Get Started</md-filled-button>
-          <md-outlined-button>View on GitHub</md-outlined-button>
-        </div>
-      </div>
-    </section>
-
-    <section class="features">
-      <div class="container">
-        <h2>Features</h2>
-        <div class="card-container">
-          <md-elevated-card class="feature-card">
-            <div class="card-header">
-              <span class="material-symbols-outlined">hub</span>
-              <h3>MCP Integration</h3>
-            </div>
-            <div class="card-content">
-              <p>Seamless context management with Open Protocol's MCP</p>
-            </div>
-            <div class="card-actions">
-              <md-text-button>Learn More</md-text-button>
-            </div>
-          </md-elevated-card>
-
-          <md-elevated-card class="feature-card">
-            <div class="card-header">
-              <span class="material-symbols-outlined">smart_toy</span>
-              <h3>Google ADK</h3>
-            </div>
-            <div class="card-content">
-              <p>Agent-based workflows using Gemini models</p>
-            </div>
-            <div class="card-actions">
-              <md-text-button>Learn More</md-text-button>
-            </div>
-          </md-elevated-card>
-
-          <md-elevated-card class="feature-card">
-            <div class="card-header">
-              <span class="material-symbols-outlined">cloud</span>
-              <h3>Containerized</h3>
-            </div>
-            <div class="card-content">
-              <p>Easy deployment with Docker and Docker Compose</p>
-            </div>
-            <div class="card-actions">
-              <md-text-button>Learn More</md-text-button>
-            </div>
-          </md-elevated-card>
-        </div>
-      </div>
-    </section>
-
-    <section class="playground">
-      <div class="container">
-        <h2>Try the Integration</h2>
-        <div class="demo-container">
-          <div class="input-area">
-            <label for="topic">Enter a topic for research:</label>
-            <md-filled-text-field id="topic" label="Topic" type="text"></md-filled-text-field>
-            <md-checkbox id="use-adk" touch-target="wrapper">Use ADK</md-checkbox>
-            <md-filled-button id="generate-btn">Generate Report</md-filled-button>
-          </div>
-          <div class="output-area">
-            <h3>Result</h3>
-            <md-outlined-text-field id="result" label="Output" type="text" rows="8" cols="40" readonly></md-outlined-text-field>
+    <!-- Home Tab Content -->
+    <div id="content-home" class="tab-content active-tab">
+      <section class="hero">
+        <div class="container">
+          <h2>Model Context Protocol + Google ADK</h2>
+          <p>A powerful integration between Open Protocol's MCP and Google's Agent Development Kit</p>
+          <div class="button-group">
+            <md-filled-button>Get Started</md-filled-button>
+            <md-outlined-button>View on GitHub</md-outlined-button>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <h2>Features</h2>
+          <div class="card-container">
+            <md-elevated-card class="feature-card">
+              <div class="card-header">
+                <span class="material-symbols-outlined">hub</span>
+                <h3>MCP Integration</h3>
+              </div>
+              <div class="card-content">
+                <p>Seamless context management with Open Protocol's MCP</p>
+              </div>
+              <div class="card-actions">
+                <md-text-button>Learn More</md-text-button>
+              </div>
+            </md-elevated-card>
+
+            <md-elevated-card class="feature-card">
+              <div class="card-header">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <h3>Google ADK</h3>
+              </div>
+              <div class="card-content">
+                <p>Agent-based workflows using Gemini models</p>
+              </div>
+              <div class="card-actions">
+                <md-text-button>Learn More</md-text-button>
+              </div>
+            </md-elevated-card>
+
+            <md-elevated-card class="feature-card">
+              <div class="card-header">
+                <span class="material-symbols-outlined">cloud</span>
+                <h3>Containerized</h3>
+              </div>
+              <div class="card-content">
+                <p>Easy deployment with Docker and Docker Compose</p>
+              </div>
+              <div class="card-actions">
+                <md-text-button>Learn More</md-text-button>
+              </div>
+            </md-elevated-card>
+          </div>
+        </div>
+      </section>
+
+      <section class="playground">
+        <div class="container">
+          <h2>Try the Integration</h2>
+          <div class="demo-container">
+            <div class="input-area">
+              <label for="topic">Enter a topic for research:</label>
+              <md-filled-text-field id="topic" label="Topic" type="text"></md-filled-text-field>
+              <md-checkbox id="use-adk" touch-target="wrapper">Use ADK</md-checkbox>
+              <md-filled-button id="generate-btn">Generate Report</md-filled-button>
+            </div>
+            <div class="output-area">
+              <h3>Result</h3>
+              <md-outlined-text-field id="result" label="Output" type="text" rows="8" cols="40" readonly></md-outlined-text-field>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Documentation Tab Content -->
+    <div id="content-docs" class="tab-content">
+      <section class="documentation">
+        <div class="container">
+          <h2>Documentation</h2>
+          <div class="docs-content">
+            <h3>Model Context Protocol (MCP)</h3>
+            <p>MCP is like USB-C for AI: it builds a secure, two-way connection between any external data source and an AI/LLM system. It enables structured, seamless context-sharing for smart, dynamic workflows.</p>
+            
+            <h3>Google Agent Development Kit (ADK)</h3>
+            <p>Google ADK provides tools for building AI agents with Gemini models, enabling complex workflows and agent-based problem solving.</p>
+            
+            <h3>Integration Architecture</h3>
+            <p>The MCP-ADK integration consists of two main components:</p>
+            <ul>
+              <li>A TypeScript MCP service that handles context management</li>
+              <li>A Python ADK service that provides agent-based workflows</li>
+            </ul>
+            
+            <h3>Getting Started</h3>
+            <p>To use the integration, follow these steps:</p>
+            <ol>
+              <li>Set up your environment with the required credentials</li>
+              <li>Run both services using Docker or locally</li>
+              <li>Use the API endpoints to make requests</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- API Tab Content -->
+    <div id="content-api" class="tab-content">
+      <section class="api-reference">
+        <div class="container">
+          <h2>API Reference</h2>
+          <div class="api-content">
+            <h3>Playground Endpoint</h3>
+            <p><code>POST /api/playground</code></p>
+            <p>This endpoint allows you to send research topics to the integration.</p>
+            
+            <h4>Request Body</h4>
+            <pre>{
+  "topic": "Your research topic",
+  "use_adk": true|false
+}</pre>
+            
+            <h4>Response</h4>
+            <pre>// When use_adk is true
+{
+  "report": "Generated report from ADK"
+}
+
+// When use_adk is false
+{
+  "result": "Standard MCP response",
+  "topic": "Your research topic",
+  "timestamp": "ISO timestamp"
+}</pre>
+            
+            <h3>Generate Report Endpoint</h3>
+            <p><code>POST /generate_report</code></p>
+            <p>This endpoint is used by the ADK service directly.</p>
+            
+            <h4>Request Body</h4>
+            <pre>{
+  "topic": "Your research topic"
+}</pre>
+            
+            <h4>Response</h4>
+            <pre>{
+  "report": "Generated report about the topic",
+  "status": "success"
+}</pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Examples Tab Content -->
+    <div id="content-examples" class="tab-content">
+      <section class="examples">
+        <div class="container">
+          <h2>Examples</h2>
+          <div class="examples-content">
+            <h3>Example 1: Basic Topic Research</h3>
+            <pre>curl -X POST http://localhost:5000/api/playground \
+-H "Content-Type: application/json" \
+-d '{"topic": "Future of AI", "use_adk": true}'</pre>
+            
+            <h3>Example 2: Standard MCP Response</h3>
+            <pre>curl -X POST http://localhost:5000/api/playground \
+-H "Content-Type: application/json" \
+-d '{"topic": "Climate Change", "use_adk": false}'</pre>
+            
+            <h3>Example 3: Direct ADK Request</h3>
+            <pre>curl -X POST http://localhost:8000/generate_report \
+-H "Content-Type: application/json" \
+-d '{"topic": "Sustainable Energy"}'</pre>
+            
+            <h3>Example 4: Python Client</h3>
+            <pre>import requests
+
+response = requests.post(
+    "http://localhost:5000/api/playground",
+    json={"topic": "Machine Learning", "use_adk": True}
+)
+
+print(response.json())</pre>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer>
     <div class="container">
       <p>&copy; 2025 MCP-ADK Integration</p>
       <div class="footer-links">
-        <a href="#">GitHub</a>
-        <a href="#">Documentation</a>
-        <a href="#">API Reference</a>
+        <a href="https://github.com/groupthinking/mcp-tools-extension" target="_blank">GitHub</a>
+        <a href="#" id="docs-link">Documentation</a>
+        <a href="#" id="api-link">API Reference</a>
       </div>
     </div>
   </footer>
 
-  <script type="module">
-    import '@material/web/button/filled-button.js';
-    import '@material/web/button/outlined-button.js';
-    import '@material/web/button/text-button.js';
-    import '@material/web/checkbox/checkbox.js';
-    import '@material/web/icon/icon.js';
-    import '@material/web/iconbutton/icon-button.js';
-    import '@material/web/tabs/tabs.js';
-    import '@material/web/tabs/primary-tab.js';
-    import '@material/web/textfield/filled-text-field.js';
-    import '@material/web/textfield/outlined-text-field.js';
-    import '@material/web/icon/icon.js';
-    import '@material/web/elevation/elevation.js';
-    import '@material/web/card/elevated-card.js';
-    import '@material/web/card/outlined-card.js';
-  </script>
   <script src="app.js"></script>
 </body>
 </html> 

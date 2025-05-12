@@ -94,6 +94,107 @@ nav {
   justify-content: center;
 }
 
+/* Tab System */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active-tab {
+  display: block;
+}
+
+/* Documentation Section */
+.documentation {
+  padding: 60px 0;
+  background-color: var(--md-sys-color-surface);
+}
+
+.docs-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.docs-content h3 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: var(--md-sys-color-primary);
+}
+
+.docs-content p {
+  margin-bottom: 15px;
+}
+
+.docs-content ul, .docs-content ol {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.docs-content li {
+  margin-bottom: 8px;
+}
+
+/* API Section */
+.api-reference {
+  padding: 60px 0;
+  background-color: var(--md-sys-color-surface);
+}
+
+.api-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.api-content h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: var(--md-sys-color-primary);
+}
+
+.api-content h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.api-content pre {
+  background-color: var(--md-sys-color-surface-variant);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.api-content code {
+  background-color: var(--md-sys-color-surface-variant);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Examples Section */
+.examples {
+  padding: 60px 0;
+  background-color: var(--md-sys-color-surface);
+}
+
+.examples-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.examples-content h3 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: var(--md-sys-color-primary);
+}
+
+.examples-content pre {
+  background-color: var(--md-sys-color-surface-variant);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
 /* Hero Section */
 .hero {
   background-color: var(--md-sys-color-primary-container);

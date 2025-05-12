@@ -9,6 +9,40 @@ document.addEventListener('DOMContentLoaded', () => {
     themeIcon.textContent = isDarkMode ? 'light_mode' : 'dark_mode';
   });
   
+  // Tab functionality
+  const tabs = document.querySelector('md-tabs');
+  const tabContents = document.querySelectorAll('.tab-content');
+  const tabHome = document.getElementById('tab-home');
+  const tabDocs = document.getElementById('tab-docs');
+  const tabApi = document.getElementById('tab-api');
+  const tabExamples = document.getElementById('tab-examples');
+  
+  function showTab(tabIndex) {
+    tabContents.forEach(content => {
+      content.classList.remove('active-tab');
+    });
+    
+    const contentIds = ['content-home', 'content-docs', 'content-api', 'content-examples'];
+    document.getElementById(contentIds[tabIndex]).classList.add('active-tab');
+  }
+  
+  tabs.addEventListener('change', (e) => {
+    showTab(e.target.activeTabIndex);
+  });
+  
+  // Footer links for tabs
+  document.getElementById('docs-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    tabs.activeTabIndex = 1;
+    showTab(1);
+  });
+  
+  document.getElementById('api-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    tabs.activeTabIndex = 2;
+    showTab(2);
+  });
+  
   // API integration
   const generateBtn = document.getElementById('generate-btn');
   const topicField = document.getElementById('topic');
@@ -59,21 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  // Tab navigation
-  const tabs = document.querySelector('md-tabs');
-  tabs.addEventListener('change', (e) => {
-    console.log(`Selected tab: ${e.target.activeTabIndex}`);
-    // Implement tab navigation logic here
-  });
-  
   // GitHub button
-  const githubButton = document.querySelector('md-outlined-button');
+  const githubButton = document.querySelector('.hero md-outlined-button');
   githubButton.addEventListener('click', () => {
     window.open('https://github.com/groupthinking/mcp-tools-extension', '_blank');
   });
   
   // Get Started button
-  const getStartedButton = document.querySelector('md-filled-button');
+  const getStartedButton = document.querySelector('.hero md-filled-button');
   getStartedButton.addEventListener('click', () => {
     const playgroundSection = document.querySelector('.playground');
     playgroundSection.scrollIntoView({ behavior: 'smooth' });
