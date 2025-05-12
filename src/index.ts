@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 import playgroundRoutes from './routes/playground';
 
 // Load environment variables
@@ -12,8 +13,16 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, '../public')));
+
+// API Routes
 app.use('/api', playgroundRoutes);
+
+// Default route to serve the frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 // Start server
 app.listen(PORT, () => {
